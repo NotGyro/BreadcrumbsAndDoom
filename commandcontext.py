@@ -2,10 +2,11 @@ from action import *
 
 #To which commands are directed 
 class CommandContext:
-    def __init__(self):
+    def __init__(self, pset = None):
         self.actionDictionary = dict()
         #Target refers to the entity being controlled.
         self.targetCreature = None
+        self.parent = pset
     def addAction(self, act):
         for al in act.aliases:
             #Convert to uppercase for case-insensitivity
@@ -26,5 +27,15 @@ class CommandContext:
             #A command was found and executed
         else:
             #No command matching:
+            if not ( self.parent == None ):
+                return self.parent.doCommand(cmdstr)
             return False
+    def getAction(self, act):
+        if (act == None) or (act == ""):
+            print("ERROR: Invalid action - cannot retrieve nil command!")
+            return None
+        if act.upper() in self.actionDictionary:
+            return self.actionDictionary.get(act.upper())
+        print("Command not found.")
+        return None
 

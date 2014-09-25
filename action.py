@@ -1,7 +1,7 @@
 #python3.4
 
 #ba dum tch
-class Action:
+class Action(object):
     #This constructor takes either a string to use as the command /
     #key for players to type, or a list of aliases for the command.
     #Thus, Action("attack") and Action(["Attack", "A", "Atk"]) are
