@@ -7,19 +7,29 @@ class HelpAction(Action):
         super(HelpAction, self).__init__(commandstring, helpstring)
     def execute(self, target=None, args="") :
         if (args == "") or (args == None):
-            print(self.context.actionDictionary)
+            current = self.context
+            acts = list()
+            result = ""
+            while not (current == None):
+                acts = acts + list(current.actionDictionary.keys())
+                current = current.parent
+            for a in sorted(acts):
+                if not (result == ""):
+                    result = result + ", "
+                result = result + a
+            target.printer.write(result)
             return True
         commandname = args.split(" ", 1)[0]
-        print("Information on command " + commandname + ":")
+        target.printer.write("Information on command " + commandname + ":")
         act = self.context.getAction(commandname)
         if(act == None):
-            print("Sorry, we cannot help you with that! :<")
+            target.printer.write("Sorry, we cannot help you with that! :<")
             return False
         aliasstring = ""
         for alias in act.aliases :
             if len(aliasstring) > 0 :
                 aliasstring = aliasstring + ", "
             aliasstring = aliasstring + alias
-        print("(Valid aliases: " + aliasstring + ")")
-        print(act.helpstring)
+        target.printer.write("(Valid aliases: " + aliasstring + ")")
+        target.printer.write(act.helpstring)
         return True

@@ -25,35 +25,35 @@ class QuitAction(Action):
 print("Hello again, world. How ya doin'?")
 
 testContext = CommandContext()
-print (testContext.doCommand("rolf -a")) #Should print False.
-a = Action(["Attack", "A", "Atk"], "do some shit")
+#print (testContext.doCommand("rolf -a")) #Should print False.
+#a = Action(["Attack", "A", "Atk"], "do some shit")
 
-b = TestAct(["test", "t"], "WHAHEY")
+#b = TestAct(["test", "t"], "WHAHEY")
 
 h = HelpAction(testContext)
 
-testContext.addAction(a)
-testContext.addAction(b)
+#testContext.addAction(a)
+#testContext.addAction(b)
 testContext.addAction(h)
 
-print(testContext.doCommand("aTk JUNK DaTa")) #Should print true.
-print(testContext.doCommand("t user"))
-testContext.doCommand("h t")
+#print(testContext.doCommand("aTk JUNK DaTa")) #Should print true.
+#print(testContext.doCommand("t user"))
+#testContext.doCommand("h t")
 
 q = QuitAction(["Quit","Exit","q"])
 testContext.addAction(q)
 
 testWorld = World()
-testWorld.generateTile(0,0)
+testWorld.generateTilesAround(0,0)
 
 testPlayer = PlayerCharacter()
 
 tile = testWorld.getTile(0,0)
 ground = tile.getLevel("GROUND")
-hell = BaseZone(tile, "hell", "HELL")
-ground.setBelow(hell)
-hell.setAbove(ground)
-tile.addLevel("HELL", hell)
+#hell = BaseZone(tile, "Hell", "HELL")
+#ground.setBelow(hell)
+#hell.setAbove(ground)
+#tile.addLevel("HELL", hell)
 
 testPlayer.setCurrentZone(ground)
 testContext.setParent(testPlayer.getCommandContext())
